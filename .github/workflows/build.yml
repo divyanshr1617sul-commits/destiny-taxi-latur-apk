@@ -1,0 +1,46 @@
+# Destiny Sedan Taxi Latur — Android App
+
+This project wraps the Destiny Sedan Taxi Latur booking website in a native Android WebView.
+
+## Fixed issue
+
+The exported website contained an **"Download Destiny Sedan App"** install-guide modal that was visible when the Android app started. It could block the screen and its close behavior was unreliable.
+
+This version:
+- Removes the startup download/install popup.
+- Removes the buttons that opened that popup.
+- Adds a WebView safety check that removes the old modal if an older HTML copy is ever loaded.
+- Keeps phone, WhatsApp and email links working through Android intents.
+- Keeps Android back navigation working.
+
+## Build locally
+
+Open `destiny_apk_project` in Android Studio.
+
+Or with Gradle 8.7 + JDK 17:
+
+```bash
+cd destiny_apk_project
+gradle assembleDebug
+```
+
+APK:
+`app/build/outputs/apk/debug/app-debug.apk`
+
+## Build on GitHub
+
+Push the repository to GitHub. The workflow in `.github/workflows/build-apk.yml` automatically builds the debug APK on pushes, pull requests, and manual workflow runs.
+
+In GitHub:
+**Actions → Build Android APK → run workflow**
+
+Then open the completed run and download the **Destiny-Sedan-Taxi-debug-apk** artifact.
+
+pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
+rootProject.name='DestinySedanTaxi'
+include ':app'
+
+plugins {
+    id 'com.android.application' version '8.6.1' apply false
+}
